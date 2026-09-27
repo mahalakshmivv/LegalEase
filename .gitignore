@@ -1,0 +1,29 @@
+# Environment files
+.env
+.env.local
+
+# Virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local AI / model files
+models/
+model/
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

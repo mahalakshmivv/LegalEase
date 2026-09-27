@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LegalEase - AI-assisted legal document drafting workspace">
+  <meta name="theme-color" content="#081018">
+  <title>LegalEase | AI Legal Document Generator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body data-theme="dark">
+  <div class="page-shell">
+
+    <header class="nav-shell">
+      <a class="brand-wrap" href="#home" aria-label="LegalEase home">
+        <div class="brand-icon" aria-hidden="true">⚖</div>
+        <div>
+          <div class="brand-name">LegalEase</div>
+          <div class="brand-subtitle">AI legal drafting workspace</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a class="nav-link active" href="#home">Home</a>
+        <a class="nav-link" href="#templates">Templates</a>
+        <a class="nav-link" href="#workspace">Workspace</a>
+        <a class="nav-link" href="#about">About</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-button" type="button" aria-label="Toggle color theme">☀ Light</button>
+    </header>
+
+    <div class="nav-rule"></div>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="eyebrow">AI-ASSISTED LEGAL DRAFTING</div>
+          <h1 class="hero-title">Create formal legal documents <span>with clarity.</span></h1>
+          <p class="hero-description">
+            Start from a structured template, provide the facts and terms that matter, generate an AI-assisted draft,
+            review it in an A4-style legal page, edit the text, and export the final draft.
+          </p>
+          <div class="hero-features">
+            <span>Gemini AI</span>
+            <span>FastAPI</span>
+            <span>Editable Draft</span>
+            <span>A4 Preview</span>
+            <span>DOCX</span>
+            <span>PDF</span>
+            <span>TXT</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="notice" aria-label="Legal use notice">
+        <div class="notice-icon" aria-hidden="true">!</div>
+        <div>
+          <div class="notice-title">AI drafting assistant — not legal advice</div>
+          <div class="notice-text">
+            Generated documents are drafts. Review facts, jurisdiction-specific requirements, and enforceability before signing or relying on them.
+          </div>
+        </div>
+      </section>
+
+      <section id="templates" class="section-block">
+        <div class="section-head">
+          <div class="section-left">
+            <div class="section-number">01</div>
+            <div>
+              <h2>Choose a document template</h2>
+              <p class="section-subtitle">Start with a structured legal-document type.</p>
+            </div>
+          </div>
+          <div class="section-note">Template library</div>
+        </div>
+
+        <div class="template-grid">
+          <button class="template-card selected" type="button" data-type="Employment Contract">
+            <span class="template-icon">💼</span>
+            <span class="template-copy"><strong>Employment Contract</strong><small>Role, compensation, duties, termination</small></span>
+          </button>
+
+          <button class="template-card" type="button" data-type="Non-Disclosure Agreement (NDA)">
+            <span class="template-icon">🔐</span>
+            <span class="template-copy"><strong>Non-Disclosure Agreement</strong><small>Confidential information and obligations</small></span>
+          </button>
+
+          <button class="template-card" type="button" data-type="Lease Agreement">
+            <span class="template-icon">🏠</span>
+            <span class="template-copy"><strong>Lease Agreement</strong><small>Premises, rent, term and notices</small></span>
+          </button>
+
+          <button class="template-card" type="button" data-type="Freelance Agreement">
+            <span class="template-icon">🧑‍💻</span>
+            <span class="template-copy"><strong>Freelance Agreement</strong><small>Services, fees, IP and delivery</small></span>
+          </button>
+
+          <button class="template-card" type="button" data-type="Employment Offer Letter">
+            <span class="template-icon">📄</span>
+            <span class="template-copy"><strong>Employment Offer Letter</strong><small>Offer, position, start date and terms</small></span>
+          </button>
+
+          <button class="template-card" type="button" data-type="Custom Agreement">
+            <span class="template-icon">✦</span>
+            <span class="template-copy"><strong>Custom Agreement</strong><small>Draft from your own instructions</small></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="workspace" class="workspace-section" aria-label="Document workspace">
+        <div class="workspace-grid">
+
+          <section class="document-column">
+            <div class="section-head">
+              <div class="section-left">
+                <div class="section-number">02</div>
+                <div>
+                  <h2>Document workspace</h2>
+                  <p class="section-subtitle">Preview, edit and export your draft.</p>
+                </div>
+              </div>
+              <div id="documentStageNote" class="section-note">Waiting for a draft</div>
+            </div>
+
+            <div id="emptyState" class="empty-preview">
+              <div class="empty-icon">⚖</div>
+              <div class="empty-title">Your document workspace is ready</div>
+              <div class="empty-copy">
+                Select a template, enter the important details on the right, and generate your legal draft.
+                The result will appear here as a formal document page.
+              </div>
+            </div>
+
+            <div id="documentState" class="document-state hidden">
+              <div class="preview-frame">
+                <article id="documentPreview" class="document-paper" aria-label="Generated legal document" aria-live="polite"></article>
+              </div>
+
+              <div id="modelInfo" class="model-info">Ready</div>
+
+              <section class="editor-card" aria-labelledby="editorHeading">
+                <div class="section-head compact">
+                  <div class="section-left">
+                    <div class="section-number">03</div>
+                    <div>
+                      <h2 id="editorHeading">Edit document</h2>
+                      <p class="section-subtitle">Make final wording changes before export.</p>
+                    </div>
+                  </div>
+                  <div class="section-note">Live preview</div>
+                </div>
+
+                <textarea id="documentEditor" aria-label="Editable legal document"></textarea>
+
+                <div class="editor-actions">
+                  <button id="updatePreviewButton" class="secondary-button" type="button">Update preview</button>
+                  <button id="resetDraftButton" class="ghost-button" type="button">Reset generated draft</button>
+                </div>
+              </section>
+
+              <section id="export" class="export-card" aria-labelledby="exportHeading">
+                <div class="section-head compact">
+                  <div class="section-left">
+                    <div class="section-number">04</div>
+                    <div>
+                      <h2 id="exportHeading">Export document</h2>
+                      <p class="section-subtitle">Download the reviewed draft in your preferred format.</p>
+                    </div>
+                  </div>
+                  <div class="section-note">File export</div>
+                </div>
+
+                <div class="export-grid">
+                  <button id="downloadTxt" class="export-button" type="button"><span>TXT</span><small>Plain text</small></button>
+                  <button id="downloadDocx" class="export-button" type="button"><span>DOCX</span><small>Editable Word file</small></button>
+                  <button id="downloadPdf" class="export-button" type="button"><span>PDF</span><small>Print-ready document</small></button>
+                  <button id="printButton" class="export-button" type="button"><span>PRINT</span><small>Browser print / Save PDF</small></button>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <aside class="setup-column">
+            <div class="section-head">
+              <div class="section-left">
+                <div class="section-number">05</div>
+                <div>
+                  <h2>Document setup</h2>
+                  <p class="section-subtitle">Give the model enough facts to draft accurately.</p>
+                </div>
+              </div>
+              <div class="section-note">Required information</div>
+            </div>
+
+            <section class="builder-card">
+              <form id="builderForm" novalidate>
+                <div class="form-group">
+                  <label for="documentType">Document type</label>
+                  <select id="documentType" name="document_type">
+                    <option value="Employment Contract">Employment Contract</option>
+                    <option value="Non-Disclosure Agreement (NDA)">Non-Disclosure Agreement (NDA)</option>
+                    <option value="Lease Agreement">Lease Agreement</option>
+                    <option value="Freelance Agreement">Freelance Agreement</option>
+                    <option value="Employment Offer Letter">Employment Offer Letter</option>
+                    <option value="Custom Agreement">Custom Agreement</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="parties">Parties involved</label>
+                  <textarea id="parties" name="parties" class="field-area small" placeholder="Example: ABC Technologies Pvt Ltd (Employer) and John Doe (Employee)"></textarea>
+                  <div class="field-help">List each party and their role. Include addresses only when needed.</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="terms">Key terms &amp; conditions</label>
+                  <textarea id="terms" name="terms" class="field-area large" placeholder="Example: Annual salary INR 600000; 30-day notice period; confidentiality obligations; five-day work week"></textarea>
+                  <div class="field-help">Use separate lines or semicolons for individual terms.</div>
+                </div>
+
+                <div class="two-fields">
+                  <div class="form-group">
+                    <label for="effectiveDate">Effective date</label>
+                    <input id="effectiveDate" name="dates" type="date">
+                  </div>
+                  <div class="form-group">
+                    <label for="jurisdiction">Governing law / jurisdiction</label>
+                    <input id="jurisdiction" name="jurisdiction" type="text" placeholder="e.g. Tamil Nadu, India">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="additional">Additional instructions</label>
+                  <textarea id="additional" name="additional_instructions" class="field-area medium" placeholder="Example: Use numbered sections, include a two-party signature block, and include a review note at the end."></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button id="generateButton" class="generate-button" type="submit">Generate Legal Document</button>
+                  <button id="fillExampleButton" class="ghost-button full-width" type="button">Fill example</button>
+                </div>
+
+                <div id="status" class="status" role="status" aria-live="polite"></div>
+                <div class="backend-note">The browser sends the form to the FastAPI backend at <code>/api/generate</code>.</div>
+              </form>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer id="about" class="footer">
+      <div class="footer-brand">LegalEase</div>
+      <div>AI-assisted legal document drafting workspace · FastAPI + Gemini</div>
+      <div>Review important generated documents before signing or relying on them.</div>
+    </footer>
+  </div>
+</body>
+</html>
